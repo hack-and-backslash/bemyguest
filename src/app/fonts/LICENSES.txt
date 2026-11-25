@@ -1,0 +1,7 @@
+These fonts are self-hosted under the SIL Open Font License 1.1 (https://openfontlicense.org):
+
+- Figtree      — Copyright 2022 The Figtree Project Authors (github.com/erikdkennedy/figtree)
+- Kalam        — Copyright 2014 Indian Type Foundry
+- Young Serif  — Copyright 2023 The Young Serif Project Authors (github.com/noirblancrouge/YoungSerif)
+
+Latin subsets, taken from the Fontsource packages (fontsource.org).

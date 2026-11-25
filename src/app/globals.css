@@ -1,0 +1,340 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   Sun-bleached Goa — design tokens (mirrors the style guide board)
+   --------------------------------------------------------------- */
+@theme {
+  --color-sand-50: #fffbf3;
+  --color-sand-100: #fbf5ea;
+  --color-sand-200: #f3e6cf;
+  --color-sand-300: #e7d2ae;
+
+  --color-ink: #1f3a3d;
+  --color-ink-soft: #4a6163;
+  --color-ink-muted: #5e7375;
+
+  --color-sea-200: #cdefe4;
+  --color-sea-400: #8fd3c1;
+  --color-sea-700: #1f7a6b;
+  --color-sea-800: #165e52;
+
+  --color-coral-200: #fbd9cf;
+  --color-coral-400: #f28c74;
+  --color-coral-600: #b5472f;
+  --color-coral-800: #9a3b27;
+
+  --color-sky-200: #d6eef7;
+  --color-sky-400: #8ccbe6;
+  --color-sky-700: #2a6f94;
+
+  --color-palm-100: #dcebd6;
+  --color-palm-500: #4f8a5b;
+  --color-palm-700: #2f6b3f;
+
+  --color-sun-100: #fff1c2;
+  --color-sun-300: #f7d774;
+  --color-sunset-400: #f4a259;
+
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --shadow-rest: 0 4px 14px rgb(31 58 61 / 0.06);
+  --shadow-raised: 0 16px 34px rgb(31 58 61 / 0.12);
+  --shadow-lift: 0 12px 26px rgb(31 58 61 / 0.18);
+
+  --animate-fade-up: fade-up 0.7s var(--ease-soft) both;
+  --animate-drift: drift 20s ease-in-out infinite alternate;
+  --animate-sway: sway 7s ease-in-out infinite;
+  --animate-bob: bob 4s ease-in-out infinite;
+  --animate-flicker: flicker 2.6s ease-in-out infinite;
+  --animate-pin-in: pin-in 0.6s var(--ease-spring) both;
+  --animate-heart-pop: heart-pop 0.8s var(--ease-soft) both;
+  --animate-live: live 1.6s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes drift {
+    from { transform: translateX(0); }
+    to { transform: translateX(70px); }
+  }
+  @keyframes sway {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0) rotate(-1deg); }
+    50% { transform: translateY(-6px) rotate(1deg); }
+  }
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    40% { opacity: 0.45; }
+    60% { opacity: 0.9; }
+  }
+  @keyframes heart-pop {
+    0% { opacity: 0; transform: scale(0.4); }
+    30% { opacity: 1; transform: scale(1.12); }
+    65% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.2); }
+  }
+  @keyframes live {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+  @keyframes pin-in {
+    from { opacity: 0; transform: translateY(-24px) rotate(-8deg) scale(0.9); }
+    to { opacity: 1; }
+  }
+}
+
+@theme inline {
+  --font-serif: var(--font-young-serif), Georgia, serif;
+  --font-script: var(--font-kalam), "Segoe Print", cursive;
+  --font-sans: var(--font-figtree), system-ui, sans-serif;
+}
+
+/* ---------------- base ---------------- */
+@layer base {
+  html {
+    background: var(--color-sand-100);
+    color: var(--color-ink);
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-sand-100);
+    color: var(--color-ink);
+  }
+  a {
+    color: var(--color-sea-700);
+  }
+  a:hover {
+    color: var(--color-sea-800);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-sky-700);
+    outline-offset: 3px;
+  }
+}
+
+/* ---------------- components ---------------- */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    min-height: 3.5rem;
+    padding-inline: 1.75rem;
+    border-radius: 999px;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      transform 0.25s var(--ease-soft),
+      box-shadow 0.25s var(--ease-soft),
+      background-color 0.2s ease-out;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lift);
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  /* Doubled class so it beats .btn-primary:hover etc. (phones keep :hover after a tap). */
+  .btn.btn:disabled,
+  .btn.btn[aria-disabled="true"] {
+    background: var(--color-sand-300);
+    color: var(--color-ink-soft);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  .btn-sm {
+    min-height: 3rem;
+    padding-inline: 1.25rem;
+    font-size: 0.9375rem;
+  }
+  .btn-primary {
+    background: var(--color-coral-600);
+    color: #fff;
+  }
+  .btn-primary:hover {
+    color: #fff;
+  }
+  .btn-sea {
+    background: var(--color-sea-700);
+    color: #fff;
+  }
+  .btn-sea:hover {
+    color: #fff;
+  }
+  .btn-outline {
+    background: transparent;
+    border: 1.5px solid var(--color-ink);
+    color: var(--color-ink);
+  }
+  .btn-outline:hover {
+    color: var(--color-ink);
+  }
+  .btn-outline-sea {
+    background: var(--color-sand-50);
+    border: 1.5px solid var(--color-sea-700);
+    color: var(--color-ink);
+  }
+  .btn-outline-sea:hover {
+    color: var(--color-ink);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-sea-700);
+    padding-inline: 1rem;
+  }
+
+  .field {
+    width: 100%;
+    min-height: 3.25rem;
+    padding: 0 1.125rem;
+    border-radius: 0.875rem;
+    border: 2px solid var(--color-sand-300);
+    background: var(--color-sand-50);
+    font: inherit;
+    font-size: 1.0625rem;
+    color: var(--color-ink);
+    transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out;
+  }
+  .field::placeholder {
+    color: var(--color-ink-muted);
+  }
+  .field:focus {
+    outline: none;
+    border-color: var(--color-sea-700);
+    box-shadow: 0 0 0 4px rgb(143 211 193 / 0.55);
+  }
+
+  .choice {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    width: 100%;
+    min-height: 3.75rem;
+    padding: 0.875rem 1.125rem;
+    border-radius: 1.125rem;
+    border: 2px solid var(--color-sand-300);
+    background: #fff;
+    font: inherit;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    text-align: left;
+    cursor: pointer;
+    transition:
+      transform 0.2s var(--ease-spring),
+      border-color 0.2s ease-out,
+      background-color 0.2s ease-out;
+  }
+  .choice:hover {
+    transform: translateY(-2px);
+  }
+  .choice:active {
+    transform: scale(0.98);
+  }
+  .choice[aria-pressed="true"] {
+    background: var(--color-sea-200);
+    border-color: var(--color-sea-700);
+  }
+  .choice-dot {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #8a7a5c;
+  }
+  .choice[aria-pressed="true"] .choice-dot {
+    border: 5px solid var(--color-sea-200);
+    background: var(--color-sea-700);
+    box-shadow: 0 0 0 2px var(--color-sea-700);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 3rem;
+    padding: 0 1.25rem;
+    border-radius: 999px;
+    border: 2px solid var(--color-sand-300);
+    background: var(--color-sand-50);
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    cursor: pointer;
+    transition: transform 0.2s var(--ease-spring);
+  }
+  .chip:active {
+    transform: scale(0.97);
+  }
+  .chip[aria-pressed="true"] {
+    background: var(--color-sea-700);
+    border-color: var(--color-sea-700);
+    color: #fff;
+  }
+
+  .card {
+    background: var(--color-sand-50);
+    border-radius: 1.75rem;
+    box-shadow: var(--shadow-rest);
+  }
+
+  .tile {
+    transition:
+      transform 0.3s var(--ease-soft),
+      box-shadow 0.3s var(--ease-soft);
+  }
+  .tile:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-raised);
+  }
+  .tile .tile-icon {
+    transition: transform 0.35s var(--ease-spring);
+  }
+  .tile:hover .tile-icon {
+    transform: scale(1.1) rotate(-6deg);
+  }
+
+  .nav-item .nav-icon {
+    transition: transform 0.35s var(--ease-spring);
+  }
+  .nav-item:hover .nav-icon {
+    transform: scale(1.14);
+  }
+
+  .wall-board {
+    background-color: var(--color-sand-200);
+    background-image: radial-gradient(#e4cfa8 1.5px, transparent 1.6px);
+    background-size: 22px 22px;
+  }
+
+  .kicker {
+    font-family: var(--font-script);
+    line-height: 1.2;
+  }
+  .overline {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
